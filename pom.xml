@@ -26,7 +26,7 @@
   <name>QE Examples</name>
 
   <modules>
-    <module>spark2-examples</module>
+    <module>spark2-examples-assembly</module>
   </modules>
 
   <properties>
