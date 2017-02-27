@@ -33,4 +33,12 @@
     <spark.version>2.1.0</spark.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>${repoid}</id>
+      <name>${reponame}</name>
+      <url>${repourl}</url>
+    </repository>
+  </repositories>
+
 </project>
