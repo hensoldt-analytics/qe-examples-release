@@ -34,11 +34,6 @@ library(SparkR)
 # Initialize SparkSession
 sparkR.session(appName = "SparkR-native-r-package-example")
 
-# $example on$
-# The directory where the third-party R packages are installed.
-libDir <- paste0(tempdir(), "/", "Rlib")
-dir.create(libDir)
-
 # Downloaded e1071 package source code to a directory
 packagesDir <- paste0(tempdir(), "/", "packages")
 dir.create(packagesDir)
@@ -48,13 +43,13 @@ packagesPath <- file.path(packagesDir, filename)
 # Add the third-party R package to be downloaded with this Spark job on every node.
 spark.addFile(packagesPath)
 
-path <- spark.getSparkFiles(filename)
 costs <- exp(seq(from = log(1), to = log(1000), length.out = 5))
 train <- function(cost) {
-    if("e1071" %in% rownames(installed.packages(lib = libDir)) == FALSE) {
-        install.packages(path, lib = libDir, repos = NULL, type = "source")
+    path <- spark.getSparkFiles(filename)
+    if("e1071" %in% rownames(installed.packages(lib = .libPaths())) == FALSE) {
+        install.packages(path, repos = NULL, type = "source")
     }
-    library(e1071)
+    library("e1071")
     model <- svm(Species ~ ., data = iris, cost = cost)
     summary(model)
 }
@@ -63,6 +58,5 @@ model.summaries <- spark.lapply(costs, train)
 # Print the rho of the first model
 print(model.summaries[[1]]$rho)
 
-unlink(libDir, recursive = TRUE)
 unlink(packagesDir, recursive = TRUE)
 # $example off$
