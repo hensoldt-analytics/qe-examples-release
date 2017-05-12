@@ -50,19 +50,16 @@ train1 <- function(cost) {
 }
 spark.lapply(costs, train1)
 
-libDir <- paste0(tempdir(), "/", "lib")
-dir.create(libDir)
-install.packages("e1071", lib = libDir, repos = "https://cran.r-project.org")
-library("e1071", lib.loc = libDir)
-train2 <- function(cost) {
-    model <- svm(Species ~ ., data = iris, cost = cost)
-    summary(model)
+algorithms <- c("Hartigan-Wong", "Lloyd", "MacQueen")
+train2 <- function(algorithm) {
+    model <- kmeans(x = iris[1:4], centers = 3, algorithm = algorithm)
+    model$withinss
 }
-model.summaries <- lapply(costs, train2)
 
-# Print the rho of the first model
-print(model.summaries[[1]]$rho)
+model.withinss <- spark.lapply(algorithms, train2)
+
+# Print the within-cluster sum of squares for the first model
+print(model.withinss[[1]])
 
 unlink(packagesDir, recursive = TRUE)
-unlink(libDir, recursive = TRUE)
 # $example off$
