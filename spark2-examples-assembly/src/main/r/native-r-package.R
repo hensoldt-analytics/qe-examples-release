@@ -44,19 +44,25 @@ packagesPath <- file.path(packagesDir, filename)
 spark.addFile(packagesPath)
 
 costs <- exp(seq(from = log(1), to = log(1000), length.out = 5))
-train <- function(cost) {
+train1 <- function(cost) {
     path <- spark.getSparkFiles(filename)
-    if("e1071" %in% rownames(installed.packages(lib = .libPaths())) == FALSE) {
-        install.packages(path, repos = NULL, type = "source")
-    }
-    library("e1071")
+    file.exists(path)
+}
+spark.lapply(costs, train1)
+
+libDir <- paste0(tempdir(), "/", "lib")
+dir.create(libDir)
+install.packages("e1071", lib = libDir, repos = "https://cran.r-project.org")
+library("e1071", lib.loc = libDir)
+train2 <- function(cost) {
     model <- svm(Species ~ ., data = iris, cost = cost)
     summary(model)
 }
-model.summaries <- spark.lapply(costs, train)
+model.summaries <- lapply(costs, train2)
 
 # Print the rho of the first model
 print(model.summaries[[1]]$rho)
 
 unlink(packagesDir, recursive = TRUE)
+unlink(libDir, recursive = TRUE)
 # $example off$
