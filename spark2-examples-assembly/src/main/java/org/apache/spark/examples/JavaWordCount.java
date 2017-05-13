@@ -71,9 +71,15 @@ public final class JavaWordCount {
         }
       });
 
-    List<Tuple2<String, Integer>> output = counts.collect();
-    for (Tuple2<?,?> tuple : output) {
-      System.out.println(tuple._1() + ": " + tuple._2());
+    if (args.length == 2) {
+      // output path specified
+      System.out.println("Writing output to " + args[1]);
+      counts.saveAsTextFile(args[1]);
+    } else {
+      List<Tuple2<String, Integer>> output = counts.collect();
+      for (Tuple2<?, ?> tuple : output) {
+        System.out.println(tuple._1() + ": " + tuple._2());
+      }
     }
     spark.stop();
   }
