@@ -48,7 +48,6 @@ train1 <- function(cost) {
     path <- spark.getSparkFiles(filename)
     file.exists(path)
 }
-spark.lapply(costs, train1)
 
 algorithms <- c("Hartigan-Wong", "Lloyd", "MacQueen")
 train2 <- function(algorithm) {
