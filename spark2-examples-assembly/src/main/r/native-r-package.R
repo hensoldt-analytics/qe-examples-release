@@ -51,6 +51,7 @@ train1 <- function(cost) {
 
 algorithms <- c("Hartigan-Wong", "Lloyd", "MacQueen")
 train2 <- function(algorithm) {
+    set.seed(42)
     model <- kmeans(x = iris[1:4], centers = 3, algorithm = algorithm)
     model$withinss
 }
@@ -58,7 +59,7 @@ train2 <- function(algorithm) {
 model.withinss <- spark.lapply(algorithms, train2)
 
 # Print the within-cluster sum of squares for the first model
-print(model.withinss[[1]])
+print(sort(model.withinss[[1]]))
 
 unlink(packagesDir, recursive = TRUE)
 # $example off$
