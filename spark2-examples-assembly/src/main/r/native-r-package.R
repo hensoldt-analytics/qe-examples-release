@@ -37,7 +37,7 @@ sparkR.session(appName = "SparkR-native-r-package-example")
 # Downloaded e1071 package source code to a directory
 packagesDir <- paste0(tempdir(), "/", "packages")
 dir.create(packagesDir)
-download.packages("e1071", packagesDir, repos = "https://cran.r-project.org")
+download.packages("e1071", packagesDir, repos = "http://cran.r-project.org")
 filename <- list.files(packagesDir, "^e1071")
 packagesPath <- file.path(packagesDir, filename)
 # Add the third-party R package to be downloaded with this Spark job on every node.
