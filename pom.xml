@@ -29,7 +29,7 @@
   </modules>
 
   <properties>
-    <spark.version>2.1.1.2.6.3.0-SNAPSHOT</spark.version>
+    <spark.version>2.2.0.2.6.3.0-SNAPSHOT</spark.version>
   </properties>
 
   <repositories>
