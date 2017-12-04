@@ -62,4 +62,5 @@ model.withinss <- spark.lapply(algorithms, train2)
 print(sort(model.withinss[[1]]))
 
 unlink(packagesDir, recursive = TRUE)
+sparkR.session.stop()
 # $example off$
