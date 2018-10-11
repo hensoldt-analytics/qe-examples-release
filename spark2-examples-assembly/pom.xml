@@ -58,7 +58,6 @@
     <sbt.project.name>examples</sbt.project.name>
     <build.testJarPhase>none</build.testJarPhase>
     <build.copyDependenciesPhase>package</build.copyDependenciesPhase>
-    <!--flume.deps.scope>provided</flume.deps.scope-->
     <hadoop.deps.scope>provided</hadoop.deps.scope>
     <hive.deps.scope>provided</hive.deps.scope>
     <parquet.deps.scope>provided</parquet.deps.scope>
@@ -73,7 +72,6 @@
     <hadoop.version>2.7.3.2.6.3.0-SNAPSHOT</hadoop.version>
     <protobuf.version>2.5.0</protobuf.version>
     <yarn.version>${hadoop.version}</yarn.version>
-    <flume.version>1.5.2.2.6.3.0-SNAPSHOT</flume.version>
     <zookeeper.version>3.4.6.2.6.3.0-SNAPSHOT</zookeeper.version>
     <curator.version>2.4.0</curator.version>
     <hive.group>org.spark-project.hive</hive.group>
@@ -154,7 +152,6 @@
       during compilation if the dependency is transivite (e.g. "graphx/" depending on "core/" and
       needing Hadoop classes in the classpath to compile).
     -->
-    <!--flume.deps.scope>compile</flume.deps.scope-->
     <hadoop.deps.scope>compile</hadoop.deps.scope>
     <hive.deps.scope>compile</hive.deps.scope>
     <parquet.deps.scope>compile</parquet.deps.scope>
@@ -208,11 +205,6 @@
       <artifactId>spark-graphx_${scala.binary.version}</artifactId>
       <version>${spark.version}</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-streaming-flume_${scala.binary.version}</artifactId>
-      <version>${spark.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
